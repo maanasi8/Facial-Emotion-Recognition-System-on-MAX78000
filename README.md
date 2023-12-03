@@ -1,5 +1,6 @@
 # Mini-Project
 
+## code:
 from torchvision import transforms
 import os
 import numpy as np
@@ -60,3 +61,4 @@ plt.ylabel('Number of Samples')
 
 plt.tight_layout()
 plt.show()
+
