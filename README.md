@@ -1,6 +1,7 @@
 # Mini-Project
 
 ## code:
+<pre>
 from torchvision import transforms
 import os
 import numpy as np
@@ -61,6 +62,7 @@ plt.ylabel('Number of Samples')
 
 plt.tight_layout()
 plt.show()
+</pre>
 
 ## Results:
 ![Class balanceing image](https://github.com/maanasi8/Mini-Project/assets/126388400/794ea0b6-570d-4a63-8e97-c8611c6bb674)
