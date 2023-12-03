@@ -1,6 +1,6 @@
 # Mini-Project
 
-## code:
+## Code:
 <pre>
 from torchvision import transforms
 import os
