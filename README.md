@@ -22,9 +22,9 @@ Develop a synthesizable AI model to perform image classification on facial emoti
 2. The emotion recognition system should achieve a minimum accuracy of 70% on standardized emotion recognition benchmarks.
 ## Dataset description
 ### Facial emotion recognition
-https://www.kaggle.com/datasets/chiragsoni/ferdata
- Dataset size: 56.51MB.
- The dataset contains 35,914 grayscale images of faces.
+https://www.kaggle.com/datasets/chiragsoni/ferdata__
+ Dataset size: 56.51MB.__
+ The dataset contains 35,914 grayscale images of faces.__
  Testing images – 20.06% [7,205 images]
  Training images – 79.93% [28,709 images]
  The dataset consists of 7 classes. They are- Happy, sad, disgust, angry, fear, neutral, and surprise.
