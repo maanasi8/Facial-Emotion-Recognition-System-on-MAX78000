@@ -23,21 +23,20 @@ Develop a synthesizable AI model to perform image classification on facial emoti
 ## Dataset description
 ### Facial emotion recognition
 https://www.kaggle.com/datasets/chiragsoni/ferdata<br />
- Dataset size: 56.51MB<br />
- The dataset contains 35,914 grayscale images of faces.<br />
- Testing images – 20.06% [7,205 images]<br />
- Training images – 79.93% [28,709 images]<br />
- The dataset consists of 7 classes. They are- Happy, sad, disgust, angry, fear, neutral, and surprise.<br />
- The number of images for each feature is as follows- <br />
-angry – 4953 images
-disgust - 547 images
-fear - 5121 images
-Happy - 8989 images
-neutral - 6198 images
-sad - 6077 images
-surprise - 4002 images
- The images in the dataset are approximately of the size 2KB each.<br />
-
+Dataset size: 56.51MB<br />
+The dataset contains 35,914 grayscale images of faces.<br />
+Testing images – 20.06% [7,205 images]<br />
+Training images – 79.93% [28,709 images]<br />
+The dataset consists of 7 classes. They are- Happy, sad, disgust, angry, fear, neutral, and surprise.<br />
+The number of images for each feature is as follows- <br />
+angry – 4953 images<br />
+disgust - 547 images<br />
+fear - 5121 images<br />
+Happy - 8989 images<br />
+neutral - 6198 images<br />
+sad - 6077 images<br />
+surprise - 4002 images<br />
+The images in the dataset are approximately of the size 2KB each.<br />
 ## Intermediate Results:
 ![Figure_1](https://github.com/maanasi8/Mini-Project/assets/126388400/9963e409-ae8c-46d0-9c70-a9cc3f5d6b1d)
 ![Figure_2](https://github.com/maanasi8/Mini-Project/assets/126388400/f9a1cba9-60f3-4989-b7d1-9df2e12bdc3e)
