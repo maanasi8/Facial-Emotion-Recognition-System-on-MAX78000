@@ -22,13 +22,13 @@ Develop a synthesizable AI model to perform image classification on facial emoti
 2. The emotion recognition system should achieve a minimum accuracy of 70% on standardized emotion recognition benchmarks.
 ## Dataset description
 ### Facial emotion recognition
-https://www.kaggle.com/datasets/chiragsoni/ferdata__
- Dataset size: 56.51MB.__
- The dataset contains 35,914 grayscale images of faces.__
- Testing images – 20.06% [7,205 images]
- Training images – 79.93% [28,709 images]
- The dataset consists of 7 classes. They are- Happy, sad, disgust, angry, fear, neutral, and surprise.
- The number of images for each feature is as follows- 
+https://www.kaggle.com/datasets/chiragsoni/ferdata<br />
+ Dataset size: 56.51MB<br />
+ The dataset contains 35,914 grayscale images of faces.<br />
+ Testing images – 20.06% [7,205 images]<br />
+ Training images – 79.93% [28,709 images]<br />
+ The dataset consists of 7 classes. They are- Happy, sad, disgust, angry, fear, neutral, and surprise.<br />
+ The number of images for each feature is as follows- <br />
 angry – 4953 images
 disgust - 547 images
 fear - 5121 images
@@ -36,7 +36,7 @@ Happy - 8989 images
 neutral - 6198 images
 sad - 6077 images
 surprise - 4002 images
- The images in the dataset are approximately of the size 2KB each.
+ The images in the dataset are approximately of the size 2KB each.<br />
 
 ## Intermediate Results:
 ![Figure_1](https://github.com/maanasi8/Mini-Project/assets/126388400/9963e409-ae8c-46d0-9c70-a9cc3f5d6b1d)
