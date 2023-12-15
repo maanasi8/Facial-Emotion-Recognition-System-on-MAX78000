@@ -11,6 +11,15 @@ Develop a synthesizable AI model to perform image classification on facial emoti
 ## Scope & Constraint
 1. The dataset is constrained to 7 emotion classes.
 2. The dataset consists of grey-scale images only. Hence, it inherently demands less computational power and is more energy-efficient compared to datasets involving color images.
+## Software Engineering Requirements
+### Functional requirements:
+1. The user shall be able to input the grayscale facial images for emotion recognition.
+2. The system shall classify a range of emotions such as happiness, sadness, anger, fear, etc., from the input images.
+3. The system shall predict the emotions and generate scores/accuracies for all the emotion classes.
+4. The user shall be able to view the performance analysis.
+### Non-Functional requirements:
+1. The system should achieve a response time of less than 2 seconds for emotion recognition processing, ensuring minimal delay in emotion recognition to enhance user experience.
+2. The emotion recognition system should achieve a minimum accuracy of 70% on standardized emotion recognition benchmarks.
 
 ## Intermediate Results:
 ![Figure_1](https://github.com/maanasi8/Mini-Project/assets/126388400/9963e409-ae8c-46d0-9c70-a9cc3f5d6b1d)
