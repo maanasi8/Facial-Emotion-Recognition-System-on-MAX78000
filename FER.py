@@ -188,7 +188,7 @@ loss_fn = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 
 # Training loop
-n_epochs = 2
+n_epochs = 100
 for epoch in range(n_epochs):
     model.train()
     running_loss = 0.0
