@@ -1,4 +1,4 @@
-# Importing necessary libraries
+# Import necessary libraries
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -6,16 +6,19 @@ import torchvision
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
 from torchvision.transforms import ToTensor
 from torch.utils.data import DataLoader, Dataset
 from PIL import Image
 from torchvision.utils import make_grid
+from sklearn.metrics import accuracy_score
 
 # Emotion labels
 idx_to_label = ["angry", "disgust", 'fear', 'happy', 'neutral', 'sad', 'surprise']
+
 # Path to the dataset
 train_set = "./train"
-
 label_to_freq = {label: 0 for label in idx_to_label}
 samples = []
 
@@ -23,7 +26,6 @@ samples = []
 for label in idx_to_label:
     files = os.listdir(os.path.join(train_set, label))
     label_idx = idx_to_label.index(label)
-
     label_to_freq[label] = len(files)
     samples.extend([(os.path.join(train_set, label, file), label_idx) for file in files])
 
@@ -40,6 +42,9 @@ for label in idx_to_label:
         for idx in selected_samples:
             train.append(samples[idx])
 
+# Display total number of images after balancing the class distribution in the train dataset
+print(f"Total number of images after balancing in the train dataset: {len(train)}")
+
 label_to_freq_balanced = {label: 0 for label in idx_to_label}
 for sample in train:
     label_to_freq_balanced[idx_to_label[sample[1]]] += 1
@@ -47,7 +52,6 @@ for sample in train:
 print("Balanced Class Distribution:")
 print(label_to_freq_balanced)
 
-# Displaying the balancing with the help of  histograms
 plt.figure(figsize=(10, 5))
 plt.subplot(1, 2, 1)
 plt.bar(idx_to_label, list(label_to_freq.values()))
@@ -66,6 +70,7 @@ plt.show()
 
 # Emotion labels
 idx_to_label = ["angry", "disgust", 'fear', 'happy', 'neutral', 'sad', 'surprise']
+
 # Path to the dataset
 test_set = "./test"
 
@@ -76,7 +81,6 @@ samples = []
 for label in idx_to_label:
     files = os.listdir(os.path.join(test_set, label))
     label_idx = idx_to_label.index(label)
-
     label_to_freq[label] = len(files)
     samples.extend([(os.path.join(test_set, label, file), label_idx) for file in files])
 
@@ -93,6 +97,9 @@ for label in idx_to_label:
         for idx in selected_samples:
             test.append(samples[idx])
 
+# Display total number of images after balancing the class distribution in the test dataset
+print(f"Total number of images after balancing in the test dataset: {len(test)}")
+
 label_to_freq_balanced = {label: 0 for label in idx_to_label}
 for sample in test:
     label_to_freq_balanced[idx_to_label[sample[1]]] += 1
@@ -100,7 +107,6 @@ for sample in test:
 print("Balanced Class Distribution:")
 print(label_to_freq_balanced)
 
-# Displaying the balancing with the help of  histograms
 plt.figure(figsize=(10, 5))
 plt.subplot(1, 2, 1)
 plt.bar(idx_to_label, list(label_to_freq.values()))
@@ -129,9 +135,11 @@ class CustomDataset(Dataset):
     def _init_(self, data, transform=None):
         self.data = data
         self.transform = transform
+
     # Return the length of the dataset
     def _len_(self):
         return len(self.data)
+
     # Get item at a particular index from the dataset
     def _getitem_(self, idx):
         img_path, label = self.data[idx]
@@ -188,7 +196,9 @@ loss_fn = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 
 # Training loop
-n_epochs = 100
+n_epochs = 1
+loss_values = []
+
 for epoch in range(n_epochs):
     model.train()
     running_loss = 0.0
@@ -200,19 +210,51 @@ for epoch in range(n_epochs):
         optimizer.step()
         running_loss += loss.item()
 
-    # Calculate accuracy on test set
+    # Save the average loss for the epoch
+    average_loss = running_loss / len(trainloader)
+    loss_values.append(average_loss)
+
+    # Calculate accuracy and confusion matrix on the test set
     model.eval()
     correct = 0
     total = 0
+    all_labels = []
+    all_predictions = []
+
     with torch.no_grad():
         for images, labels in testloader:
             outputs = model(images)
             _, predicted = torch.max(outputs.data, 1)
+
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
 
-    print(f'Epoch [{epoch + 1}/{n_epochs}], Loss: {running_loss / len(trainloader):.4f}, '
-          f'Test Accuracy: {(100 * correct / total):.2f}%')
+            all_labels.extend(labels.numpy())
+            all_predictions.extend(predicted.numpy())
+
+    accuracy = accuracy_score(all_labels, all_predictions)
+    print(f'Epoch [{epoch + 1}/{n_epochs}], Loss: {average_loss:.4f}, '
+          f'Test Accuracy: {(100 * correct / total):.2f}%, '
+          f'Overall Test Accuracy: {accuracy * 100:.2f}%')
+
+    # Plot confusion matrix
+    cm = confusion_matrix(all_labels, all_predictions)
+    plt.figure(figsize=(8, 8))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=idx_to_label, yticklabels=idx_to_label)
+    plt.title('Confusion Matrix')
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.show()
+    plt.close()  # Close the figure to free up resources
+
+# Plot the loss function graph
+plt.figure(figsize=(10, 5))
+plt.plot(loss_values, label='Training Loss')
+plt.title('Training Loss Over Epochs')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+plt.show()
 
 # Displaying a batch of images
 def show_batch(dl):
@@ -222,5 +264,6 @@ def show_batch(dl):
         ax.set_yticks([])
         ax.imshow(make_grid(images[:64], nrow=8).permute(1, 2, 0), cmap='gray')
         break
-        
-show_batch(trainloader)  
+
+# Use either trainloader or testloader
+show_batch(trainloader)  # or show_batch(testloader)
