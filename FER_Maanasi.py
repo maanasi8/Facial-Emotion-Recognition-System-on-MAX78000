@@ -1,4 +1,3 @@
-
 from PIL import Image
 import torch
 import torch.nn as nn
@@ -12,46 +11,121 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix, accuracy_score
 
-# Define Emotion labels
+# Emotion labels
 idx_to_label = ["angry", "disgust", 'fear', 'happy', 'neutral', 'sad', 'surprise']
 
 # Path to the dataset
-train_set = "D:\\MAIN DOCUMENT FOLDER\\Engineering\\SEM5\\MP - Mini Project\\archive\\train"
-test_set = "D:\\MAIN DOCUMENT FOLDER\\Engineering\\SEM5\\MP - Mini Project\\archive\\test"
+train_set = "/kaggle/input/ferdata/train"
+label_to_freq = {label: 0 for label in idx_to_label}
+samples = []
 
-# Function to balance class distribution by oversampling
-def balance_dataset_oversampling(path, label_to_freq, idx_to_label):
-    samples = []
-    max_samples = 0
+# Code to balance the class distribution in the train dataset by oversampling
+for label in idx_to_label:
+    files = os.listdir(os.path.join(train_set, label))
+    label_idx = idx_to_label.index(label)
+    label_to_freq[label] = len(files)
+    samples.extend([(os.path.join(train_set, label, file), label_idx) for file in files])
 
-    for label in idx_to_label:
-        files = os.listdir(os.path.join(path, label))
-        label_idx = idx_to_label.index(label)
-        label_to_freq[label] = len(files)
-        samples.extend([(os.path.join(path, label, file), label_idx) for file in files])
-        max_samples = max(max_samples, label_to_freq[label])
+max_samples = max(label_to_freq.values())
+train = samples.copy()
 
-    balanced_data = []
-    for label in idx_to_label:
-        label_samples = [(sample, label_idx) for sample, label_idx in samples if label_idx == idx_to_label.index(label)]
-        oversampled_samples = label_samples * (max_samples // len(label_samples))
-        np.random.shuffle(oversampled_samples)
-        balanced_data.extend(oversampled_samples[:max_samples])
+for label in idx_to_label:
+    label_count = label_to_freq[label]
+    if label_count < max_samples:
+        samples_to_add = max_samples - label_count
+        label_indices = [idx for idx, sample in enumerate(samples) if sample[1] == idx_to_label.index(label)]
+        selected_samples = np.random.choice(label_indices, samples_to_add, replace=True)
 
-    return balanced_data
+        for idx in selected_samples:
+            train.append(samples[idx])
 
+# Display total number of images after balancing the class distribution in the train dataset
+print(f"Total number of images after balancing in the train dataset: {len(train)}")
 
-# Balance the train and test datasets using oversampling
-train_data = balance_dataset_oversampling(train_set, {label: 0 for label in idx_to_label}, idx_to_label)
-test_data = balance_dataset_oversampling(test_set, {label: 0 for label in idx_to_label}, idx_to_label)
+label_to_freq_balanced = {label: 0 for label in idx_to_label}
+for sample in train:
+    label_to_freq_balanced[idx_to_label[sample[1]]] += 1
 
-# Define transformations for image data
+print("Balanced Class Distribution:")
+print(label_to_freq_balanced)
+
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.bar(idx_to_label, list(label_to_freq.values()))
+plt.title('Class Distribution Before Balancing')
+plt.xlabel('Emotions')
+plt.ylabel('Number of Samples')
+
+plt.subplot(1, 2, 2)
+plt.bar(idx_to_label, list(label_to_freq_balanced.values()))
+plt.title('Class Distribution After Balancing')
+plt.xlabel('Emotions')
+plt.ylabel('Number of Samples')
+
+plt.tight_layout()
+plt.show()
+
+# Emotion labels
+idx_to_label = ["angry", "disgust", 'fear', 'happy', 'neutral', 'sad', 'surprise']
+
+# Path to the dataset
+test_set = "/kaggle/input/ferdata/test"
+
+label_to_freq = {label: 0 for label in idx_to_label}
+samples = []
+
+# Code to balance the class distribution in the test dataset by oversampling
+for label in idx_to_label:
+    files = os.listdir(os.path.join(test_set, label))
+    label_idx = idx_to_label.index(label)
+    label_to_freq[label] = len(files)
+    samples.extend([(os.path.join(test_set, label, file), label_idx) for file in files])
+
+max_samples = max(label_to_freq.values())
+test = samples.copy()
+
+for label in idx_to_label:
+    label_count = label_to_freq[label]
+    if label_count < max_samples:
+        samples_to_add = max_samples - label_count
+        label_indices = [idx for idx, sample in enumerate(samples) if sample[1] == idx_to_label.index(label)]
+        selected_samples = np.random.choice(label_indices, samples_to_add, replace=True)
+
+        for idx in selected_samples:
+            test.append(samples[idx])
+
+# Display total number of images after balancing the class distribution in the test dataset
+print(f"Total number of images after balancing in the test dataset: {len(test)}")
+
+label_to_freq_balanced = {label: 0 for label in idx_to_label}
+for sample in test:
+    label_to_freq_balanced[idx_to_label[sample[1]]] += 1
+
+print("Balanced Class Distribution:")
+print(label_to_freq_balanced)
+
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.bar(idx_to_label, list(label_to_freq.values()))
+plt.title('Class Distribution Before Balancing')
+plt.xlabel('Emotions')
+plt.ylabel('Number of Samples')
+
+plt.subplot(1, 2, 2)
+plt.bar(idx_to_label, list(label_to_freq_balanced.values()))
+plt.title('Class Distribution After Balancing')
+plt.xlabel('Emotions')
+plt.ylabel('Number of Samples')
+
+plt.tight_layout()
+plt.show()
+
+# Define the transformation pipeline
 transform = transforms.Compose([
-    transforms.Grayscale(num_output_channels=1),
-    transforms.Resize((20, 20)),
-    transforms.ToTensor()
+    transforms.Grayscale(num_output_channels=1),  # Convert image to grayscale
+    transforms.Resize((28, 28)),  # Resize image to (28, 28)
+    transforms.ToTensor()  # Convert PIL image to tensor
 ])
-
 
 # Define custom dataset class
 class CustomDataset(Dataset):
@@ -71,66 +145,110 @@ class CustomDataset(Dataset):
 
         return image, label
 
+# Define train and test datasets
+train_dataset = CustomDataset(train, transform=transform)
+test_dataset = CustomDataset(test, transform=transform)
 
-# Create train and test datasets
-train_dataset = CustomDataset(train_data, transform=transform)
-test_dataset = CustomDataset(test_data, transform=transform)
-
-# Define DataLoaders
+# DataLoaders
 batch_size = 64
 trainloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 testloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
+# class CNNModel(nn.Module):
+#     def _init_(self):
+#         super(CNNModel, self)._init_()
+#         self.conv1 = nn.Conv2d(1, 32, kernel_size=3, stride=1, padding=1)
+#         self.act1 = nn.ReLU()
+#         self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
 
-class CNNModel(nn.Module):
-    def __init__(self):
-        super(CNNModel, self).__init__()
+#         self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)
+#         self.act2 = nn.ReLU()
+#         self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
+
+#         self.conv3 = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1)
+#         self.act3 = nn.ReLU()
+#         self.pool3 = nn.MaxPool2d(kernel_size=2, stride=2)
+
+#         # Calculate the size of the input to the fully connected layer
+
+#         self.flatten = nn.Flatten()
+
+#         self.fc_input_size = 128 * 2 * 2  # Update this value based on the shape after convolutions
+
+#         self.fc1 = nn.Linear(self.fc_input_size, 512)
+#         self.act4 = nn.ReLU()
+#         self.dropout = nn.Dropout(0.5)
+#         self.fc2 = nn.Linear(512, len(idx_to_label))
+
+#     def forward(self, x):
+#         x = self.pool1(self.act1(self.conv1(x)))
+#         x = self.pool2(self.act2(self.conv2(x)))
+#         x = self.pool3(self.act3(self.conv3(x)))
+
+#         # Flatten the output before passing it to the fully connected layers
+#         x = self.flatten(x)
+
+#         # Ensure that the flattened shape matches the input size for the first fully connected layer
+#         x = self.dropout(self.act4(self.fc1(x)))
+#         x = self.fc2(x)
+#         return x
+
+
+class SimpleCNN(nn.Module):
+    def __init__(self, num_classes=7):  # Assuming 7 classes for emotions
+        super(SimpleCNN, self).__init__()
+
         self.conv1 = nn.Conv2d(1, 32, kernel_size=3, stride=1, padding=1)
-        self.act1 = nn.ReLU()
-        self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.relu1 = nn.ReLU()
+        self.maxpool1 = nn.MaxPool2d(kernel_size=2, stride=2)
 
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)
-        self.act2 = nn.ReLU()
-        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.relu2 = nn.ReLU()
+        self.maxpool2 = nn.MaxPool2d(kernel_size=2, stride=2)
 
         self.conv3 = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1)
-        self.act3 = nn.ReLU()
-        self.pool3 = nn.MaxPool2d(kernel_size=2, stride=2)
-
-        # Calculate the size of the input to the fully connected layer
+        self.relu3 = nn.ReLU()
+        self.maxpool3 = nn.MaxPool2d(kernel_size=2, stride=2)
 
         self.flatten = nn.Flatten()
-
-        self.fc_input_size = 128 * 2 * 2  # Update this value based on the shape after convolutions
-
-        self.fc1 = nn.Linear(self.fc_input_size, 512)
-        self.act4 = nn.ReLU()
+        self.fc1 = nn.Linear(128 * 3 * 3, 512)  # Adjust input size based on your dimensions
+        self.relu4 = nn.ReLU()
         self.dropout = nn.Dropout(0.5)
-        self.fc2 = nn.Linear(512, len(idx_to_label))
+        self.fc2 = nn.Linear(512, num_classes)
 
     def forward(self, x):
-        x = self.pool1(self.act1(self.conv1(x)))
-        x = self.pool2(self.act2(self.conv2(x)))
-        x = self.pool3(self.act3(self.conv3(x)))
+        x = self.conv1(x)
+        x = self.relu1(x)
+        x = self.maxpool1(x)
 
-        # Flatten the output before passing it to the fully connected layers
+        x = self.conv2(x)
+        x = self.relu2(x)
+        x = self.maxpool2(x)
+
+        x = self.conv3(x)
+        x = self.relu3(x)
+        x = self.maxpool3(x)
+
         x = self.flatten(x)
-
-        # Ensure that the flattened shape matches the input size for the first fully connected layer
-        x = self.dropout(self.act4(self.fc1(x)))
+        x = self.fc1(x)
+        x = self.relu4(x)
+        x = self.dropout(x)
         x = self.fc2(x)
+
         return x
 
 
+
 # Initialize model, criterion, optimizer, etc.
-model = CNNModel()
+model = SimpleCNN()
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.0001, momentum=0.9)
+
 writer = SummaryWriter()
 
 # Training loop
-n_epochs = 1
-models_dir = './models/'
+n_epochs = 100
+models_dir = '/kaggle/working/models'
 os.makedirs(models_dir, exist_ok=True)
 
 for epoch in range(n_epochs):
@@ -181,23 +299,17 @@ for epoch in range(n_epochs):
     writer.add_scalar('Loss/Test', average_test_loss, epoch + 1)
     writer.add_scalar('Accuracy/Test', accuracy, epoch + 1)
 
-    # Plot and save confusion matrix
+    # Plot and display confusion matrix without saving
     plt.figure(figsize=(8, 8))
     sns.heatmap(confusion, annot=True, fmt='d', cmap='Blues', xticklabels=idx_to_label, yticklabels=idx_to_label)
     plt.title('Confusion Matrix')
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
     plt.tight_layout()
-
-    figures_dir = './figures/'
-    os.makedirs(figures_dir, exist_ok=True)
-
-    confusion_figure_path = f"{figures_dir}confusion_matrix_epoch_{epoch + 1}.png"
-    plt.savefig(confusion_figure_path)
-    plt.close()
+    plt.show()  # Display the confusion matrix during training
 
     # Save model checkpoint (if needed)
-    model_path = f"{models_dir}model_epoch_{epoch + 1}.pth"
+    model_path = f"{models_dir}/model_epoch_{epoch + 1}.pth"
     torch.save(model.state_dict(), model_path)
 
     # Print epoch statistics
@@ -205,14 +317,5 @@ for epoch in range(n_epochs):
           f"Train Loss: {average_train_loss:.4f}, "
           f"Test Loss: {average_test_loss:.4f}, "
           f"Test Accuracy: {accuracy * 100:.2f}%")
-
-    # Display confusion matrix
-    plt.figure(figsize=(8, 8))
-    sns.heatmap(confusion, annot=True, fmt='d', cmap='Blues', xticklabels=idx_to_label, yticklabels=idx_to_label)
-    plt.title('Confusion Matrix')
-    plt.xlabel('Predicted')
-    plt.ylabel('Actual')
-    plt.tight_layout()
-    plt.show()  # This will display the confusion matrix figure during training
 
 writer.close()
