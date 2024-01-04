@@ -308,7 +308,7 @@ for epoch in range(n_epochs):
     plt.tight_layout()
     plt.show()  # Display the confusion matrix during training
 
-    # Save model checkpoint (if needed)
+    # Save model 
     model_path = f"{models_dir}/model_epoch_{epoch + 1}.pth"
     torch.save(model.state_dict(), model_path)
 
