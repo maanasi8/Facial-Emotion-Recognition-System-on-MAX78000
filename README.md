@@ -51,5 +51,5 @@ The images in the dataset are approximately of the size 2KB each.<br />
 ## Results:
 ![1](https://github.com/maanasi8/Mini-Project/assets/126388400/438cbde1-6ba7-4d06-9cb3-3e1e118d7d23)
 
-<img width="335" alt="image" src="https://github.com/maanasi8/Mini-Project/assets/126388400/0e915a74-c0b4-4606-8333-47cdcfa42874">
+<img width="1000" alt="image" src="https://github.com/maanasi8/Mini-Project/assets/126388400/0e915a74-c0b4-4606-8333-47cdcfa42874">
 
