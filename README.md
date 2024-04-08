@@ -68,20 +68,16 @@ Facial Emotion Recognition(FER) plays a major role in:
 * The increasing demand, interest, and adoption of facial emotion recognition systems was the motivation to delve into this subject for our study.
 
 ## Problem Statement
-*Develop a deployable Facial Emotion Recognition model on an ultra-low power embedded system.*
+**Develop a deployable Facial Emotion Recognition model on an ultra-low power embedded system.**
 ## Objectives
-Design of a Deep Neural network-based energy-efficient Facial Emotion Recognition
-Model.
-Development of the embedded system for the efficient deployment of the Facial Emotion
-Recognition Model.
+* Design of a Deep Neural network-based energy-efficient Facial Emotion Recognition Model.
+* Development of the embedded system for the efficient deployment of the Facial Emotion Recognition Model.
 
 ## Approach
-Model Development: Design the model with PyTorch or TensorFlow-Keras.
-Training: Train with floating-point weights, then quantize for MAX78000 deployment.
-Model Evaluation: Assess quantized model accuracy using an evaluation dataset.
-Synthesis Process: Use the MAX78000 Synthesizer tool to generate optimized C code
-from ONNX files, YAML model description, and input data. The tool generates C code
-for loading weights, performing inference, and validating results.
+1. Model Development: Design the model with PyTorch or TensorFlow-Keras.
+2. Training: Train with floating-point weights, then quantize for MAX78000 deployment.
+3. Model Evaluation: Assess quantized model accuracy using an evaluation dataset.
+4. Synthesis Process: Use the MAX78000 Synthesizer tool to generate optimized C code from ONNX files, YAML model description, and input data. The tool generates C code for loading weights, performing inference, and validating results.
 
 ## Flow diagram for Facial Emotion Recognition System
 ![image](https://github.com/maanasi8/Mini-Project/assets/126388400/b16e3363-eb8d-475a-bb57-c37d8cf62676)
@@ -90,10 +86,10 @@ for loading weights, performing inference, and validating results.
 ### MAXIM78000 FTHR BOARD:
 ![image](https://github.com/maanasi8/Mini-Project/assets/126388400/380cfd32-0422-4b82-b206-d0bdb0068ec1)
 
-Dual-Core Ultra-Low-Power Microcontroller
-2 Power Management Maximizes Operating Time for Battery Applications
-3 12-Bit Parallel Camera Interface
-4 The CNN engine also has 512KB of data memory.
-5 Input Image Size up to 1024 x 1024 pixels
-6 52 General-Purpose I/O Pins.
-7 512KB Flash and 128KB SRAM.
+* Dual-Core Ultra-Low-Power Microcontroller
+* Power Management Maximizes Operating Time for Battery Applications
+* 12-bit Parallel Camera Interface
+* The CNN engine also has 512KB of data memory
+* Input Image Size up to 1024 x 1024 pixels
+* 52 General-Purpose I/O Pins
+* 512KB Flash and 128KB SRAM
