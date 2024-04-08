@@ -53,3 +53,53 @@ The images in the dataset are approximately of the size 2KB each.<br />
 
 <img width="1000" alt="image" src="https://github.com/maanasi8/Mini-Project/assets/126388400/0e915a74-c0b4-4606-8333-47cdcfa42874">
 
+# MINOR PROJECT: FACIAL EMOTION RECOGNITION
+## Introduction
+Integrating AI and deep learning into embedded systems has enabled advancements in
+Facial Emotion Recognition (FER) for various applications.
+Practical deployment of FER systems faces challenges, particularly in resource-constrained
+environments like edge devices.
+Developing deployable FER models optimized for ultra-low power embedded systems is
+essential.
+Successful deployment of this model will unlock new possibilities for human-computer
+interaction, mental health monitoring, and consumer behavior analysis.
+
+## Motivation
+Facial Emotion Recognition(FER) plays a major role in:
+Improving human-computer interaction, allowing dynamic system responses based on user
+emotions.
+Monitoring and assessing mental health conditions through facial emotion analysis.
+Analyze consumer reactions for targeted and effective advertising for marketing strategies.
+The increasing demand, interest, and adoption of facial emotion recognition systems was
+the motivation to delve into this subject for our study.
+
+## Problem Statement
+Develop a deployable Facial Emotion Recognition model on an ultra-low power embedded system.
+## Objectives
+Design of a Deep Neural network-based energy-efficient Facial Emotion Recognition
+Model.
+Development of the embedded system for the efficient deployment of the Facial Emotion
+Recognition Model.
+
+## Approach
+Model Development: Design the model with PyTorch or TensorFlow-Keras.
+Training: Train with floating-point weights, then quantize for MAX78000 deployment.
+Model Evaluation: Assess quantized model accuracy using an evaluation dataset.
+Synthesis Process: Use the MAX78000 Synthesizer tool to generate optimized C code
+from ONNX files, YAML model description, and input data. The tool generates C code
+for loading weights, performing inference, and validating results.
+
+## Flow diagram for Facial Emotion Recognition System
+![image](https://github.com/maanasi8/Mini-Project/assets/126388400/b16e3363-eb8d-475a-bb57-c37d8cf62676)
+
+## Development Board
+### MAXIM78000 FTHR BOARD:
+![image](https://github.com/maanasi8/Mini-Project/assets/126388400/380cfd32-0422-4b82-b206-d0bdb0068ec1)
+
+Dual-Core Ultra-Low-Power Microcontroller
+2 Power Management Maximizes Operating Time for Battery Applications
+3 12-Bit Parallel Camera Interface
+4 The CNN engine also has 512KB of data memory.
+5 Input Image Size up to 1024 x 1024 pixels
+6 52 General-Purpose I/O Pins.
+7 512KB Flash and 128KB SRAM.
