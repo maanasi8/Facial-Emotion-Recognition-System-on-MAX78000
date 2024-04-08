@@ -55,10 +55,10 @@ The images in the dataset are approximately of the size 2KB each.<br />
 
 # MINOR PROJECT: FACIAL EMOTION RECOGNITION
 ## Introduction
-** Integrating AI and deep learning into embedded systems has enabled advancements in Facial Emotion Recognition (FER) for various applications.
-** Practical deployment of FER systems faces challenges, particularly in resource-constrained environments like edge devices.
-** Developing deployable FER models optimized for ultra-low power embedded systems is essential.
-** Successful deployment of this model will unlock new possibilities for human-computer interaction, mental health monitoring, and consumer behavior analysis.
+* Integrating AI and deep learning into embedded systems has enabled advancements in Facial Emotion Recognition (FER) for various applications.
+* Practical deployment of FER systems faces challenges, particularly in resource-constrained environments like edge devices.
+* Developing deployable FER models optimized for ultra-low power embedded systems is essential.
+* Successful deployment of this model will unlock new possibilities for human-computer interaction, mental health monitoring, and consumer behavior analysis.
 
 ## Motivation
 Facial Emotion Recognition(FER) plays a major role in:
