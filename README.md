@@ -62,15 +62,13 @@ The images in the dataset are approximately of the size 2KB each.<br />
 
 ## Motivation
 Facial Emotion Recognition(FER) plays a major role in:
-Improving human-computer interaction, allowing dynamic system responses based on user
-emotions.
-Monitoring and assessing mental health conditions through facial emotion analysis.
-Analyze consumer reactions for targeted and effective advertising for marketing strategies.
-The increasing demand, interest, and adoption of facial emotion recognition systems was
-the motivation to delve into this subject for our study.
+* Improving human-computer interaction, allowing dynamic system responses based on user emotions.
+* Monitoring and assessing mental health conditions through facial emotion analysis.
+* Analyze consumer reactions for targeted and effective advertising for marketing strategies.
+* The increasing demand, interest, and adoption of facial emotion recognition systems was the motivation to delve into this subject for our study.
 
 ## Problem Statement
-Develop a deployable Facial Emotion Recognition model on an ultra-low power embedded system.
+*Develop a deployable Facial Emotion Recognition model on an ultra-low power embedded system.*
 ## Objectives
 Design of a Deep Neural network-based energy-efficient Facial Emotion Recognition
 Model.
