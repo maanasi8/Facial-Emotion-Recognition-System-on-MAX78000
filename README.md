@@ -1,4 +1,5 @@
 # FACIAL EMOTION RECOGNITION
+# PHASE 1
 ## Introduction
 Facial emotion recognition(FER) is the process of detecting human emotions from facial expressions using computer vision and machine learning/ deep learning algorithms. Understanding emotions can help improve human-machine interactions, personalized digital marketing, and mental health diagnosis. Facial recognition systems use features such as eye movements, facial muscle movements, and lip position to classify emotions. Recognition of human emotions is a vital phase, which is involved in several applications such as augmented and virtual reality, advanced driver assistance systems, human-computer interaction, and security systems. Due to the growing demand for Facial Emotion Recognition (FER) in recent times, the current study deals with the identification of human emotions.
 ## Problem Statement
@@ -53,7 +54,7 @@ The images in the dataset are approximately of the size 2KB each.<br />
 
 <img width="1000" alt="image" src="https://github.com/maanasi8/Mini-Project/assets/126388400/0e915a74-c0b4-4606-8333-47cdcfa42874">
 
-# MINOR PROJECT: FACIAL EMOTION RECOGNITION
+# PHASE 2
 ## Introduction
 * Integrating AI and deep learning into embedded systems has enabled advancements in Facial Emotion Recognition (FER) for various applications.
 * Practical deployment of FER systems faces challenges, particularly in resource-constrained environments like edge devices.
