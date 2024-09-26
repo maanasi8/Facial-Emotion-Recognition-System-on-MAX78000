@@ -90,7 +90,7 @@ Facial Emotion Recognition(FER) plays a major role in:
 * Dual-Core Ultra-Low-Power Microcontroller
 * Power Management Maximizes Operating Time for Battery Applications
 * 12-bit Parallel Camera Interface
-* The CNN engine also has 512KB of data memory
+* The CNN accelerator also has 512KB of data memory
 * Input Image Size up to 1024 x 1024 pixels
 * 52 General-Purpose I/O Pins
 * 512KB Flash and 128KB SRAM
